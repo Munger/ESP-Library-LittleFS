@@ -80,7 +80,7 @@ typedef struct oldConfig_v20X{
 };
 
 
-// This certificate gets copied to a file in SPIFFS: /cert/iasRootCa.cer
+// This certificate gets copied to a file in LittleFS: /cert/iasRootCa.cer
 const char ROOT_CA[] = \
   "-----BEGIN CERTIFICATE-----\n" \
   "MIIEMjCCAxqgAwIBAgIBATANBgkqhkiG9w0BAQUFADB7MQswCQYDVQQGEwJHQjEb\n" \

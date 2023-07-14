@@ -30,7 +30,7 @@
 #include <IOTAppStory.h>                  // IOTAppStory.com library
 IOTAppStory IAS(COMPDATE, MODEBUTTON);    // Initialize IOTAppStory
 
-// This certificate gets copied to a file in SPIFFS during first boot: /cert/iasRootCa.cer
+// This certificate gets copied to a file in LittleFS during first boot: /cert/iasRootCa.cer
 const char ROOT_CA[] = \
   "-----BEGIN CERTIFICATE-----\n" \
   "MIIEMjCCAxqgAwIBAgIBATANBgkqhkiG9w0BAQUFADB7MQswCQYDVQQGEwJHQjEb\n" \
@@ -96,27 +96,27 @@ void setup() {
   IAS.onFirstBoot([]() {
     IAS.eraseEEPROM('F');                 // Optional! What to do with EEPROM on First boot of the app? 'F' Fully erase | 'P' Partial erase
 
-    // if set write certificate to SPIFFS for future use
+    // if set write certificate to LittleFS for future use
     #if defined  ESP32 || HTTPS_8266_TYPE == CERTIFICATE
       
-      // Mount SPIFFS
-      if(!ESP_SPIFFSBEGIN){
-        Serial.println(F(" Failed to mount SPIFFS"));
+      // Mount LittleFS
+      if(!ESP_LittleFSBEGIN){
+        Serial.println(F(" Failed to mount LittleFS"));
       }
 
-      // open new SPIFFS file for writing data
+      // open new LittleFS file for writing data
       File fsUploadFile;
-      fsUploadFile = SPIFFS.open("/cert/iasRootCa.cer", "w"); /// close file
+      fsUploadFile = LittleFS.open("/cert/iasRootCa.cer", "w"); /// close file
 
-      // write certificate(hardcoded char array) to SPIFFS file
+      // write certificate(hardcoded char array) to LittleFS file
       if(fsUploadFile.write((uint8_t *)ROOT_CA, strlen(ROOT_CA)) != strlen(ROOT_CA)){
-        Serial.println(F(" Failed to write certificate to SPIFFS"));
+        Serial.println(F(" Failed to write certificate to LittleFS"));
       }
 
-      // close SPIFFS FILE
+      // close LittleFS FILE
       fsUploadFile.close();
 
-      Serial.println(F(" Added Certificate to SPIFFS"));
+      Serial.println(F(" Added Certificate to LittleFS"));
     #endif
   });
   

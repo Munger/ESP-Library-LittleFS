@@ -313,11 +313,11 @@ void drawWbmp(uint8_t xMove, uint8_t yMove, Stream &file) {
 }
 
 void bootScreen(int8_t xMove, int8_t yMove,String str1, const String fileName){
-  if(!SPIFFS.begin()){
-     Serial.println(F("\n\n SPIFFS Mount Failed"));
+  if(!LittleFS.begin()){
+     Serial.println(F("\n\n LittleFS Mount Failed"));
      return;
   }
-  File file = SPIFFS.open(fileName,"r");
+  File file = LittleFS.open(fileName,"r");
   if (!file) {
      Serial.println(F("\n\n Failed to open file"));
      return;
@@ -331,5 +331,5 @@ void bootScreen(int8_t xMove, int8_t yMove,String str1, const String fileName){
   display.display();
 
   file.close();
-  SPIFFS.end();
+  LittleFS.end();
 }

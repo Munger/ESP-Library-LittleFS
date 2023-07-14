@@ -20,7 +20,7 @@
 /*---------------------------------------------------------------------------*/
 
 #define U_FLASH   0
-#define U_SPIFFS  100
+#define U_LittleFS  100
 #define U_AUTH    200
 #define U_NEXTION 300
 

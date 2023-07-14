@@ -154,20 +154,20 @@ bool CallServer::get(const char* url, String args) {
     #if HTTPS == true
         #if HTTPS_8266_TYPE == CERTIFICATE
 
-            #if HTTPS_CERT_STORAGE == ST_SPIFFS
-                // Set root certificate (from SPIFFS file)
+            #if HTTPS_CERT_STORAGE == ST_LittleFS
+                // Set root certificate (from LittleFS file)
                 #if DEBUG_LVL >= 3
-                    DEBUG_PRINT(SER_SPIFFS_MOUNTING);
+                    DEBUG_PRINT(SER_LittleFS_MOUNTING);
                 #endif
 
-                // Start SPIFFS and load partition
-                if(!SPIFFS.begin()) {
-                   (*this->_statusMessage) = SER_SPIFFS_PART_NOT_FOUND;
+                // Start LittleFS and load partition
+                if(!LittleFS.begin()) {
+                   (*this->_statusMessage) = SER_LittleFS_PART_NOT_FOUND;
                    return false;
                 }
 
-                // Get root certificate file from SPIFFS
-                File file = SPIFFS.open("/cert/iasRootCa.cer", "r");
+                // Get root certificate file from LittleFS
+                File file = LittleFS.open("/cert/iasRootCa.cer", "r");
                 if(!file) {
                    (*this->_statusMessage) = SER_CERTIFICATE_NOT_FOUND;
                     return false;
@@ -178,7 +178,7 @@ bool CallServer::get(const char* url, String args) {
                     DEBUG_PRINTLN(file.size());
                 #endif
 
-                // Load root certificate (from SPIFFS)
+                // Load root certificate (from LittleFS)
                 if(!this->_client.loadCACert(file, file.size()) || file.size() == 0) {
                    (*this->_statusMessage) = SER_CERTIFICATE_NOT_LOADED;
                     return false;
@@ -231,8 +231,8 @@ bool CallServer::get(const char* url, String args) {
     } else if(this->_command == U_FLASH) {
         mode = F("sketch");
         md5 = ESP.getSketchMD5();
-    } else if(this->_command == U_SPIFFS) {
-        mode = F("spiffs");
+    } else if(this->_command == U_LittleFS) {
+        mode = F("LittleFS");
         md5 = ESP.getSketchMD5();
     }
     #if OTA_UPD_CHECK_NEXTION == true

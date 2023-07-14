@@ -62,30 +62,30 @@ bool UpdateESPClass::prepareUpdate(uint32_t upd_size, String &upd_md5, uint16_t 
     /**
         Check for enough space before starting the update
     */
-    if(this->_command == U_SPIFFS) {
+    if(this->_command == U_LittleFS) {
         #ifdef ESP32
-            const esp_partition_t* _partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_DATA_SPIFFS, NULL);
+            const esp_partition_t* _partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_DATA_LittleFS, NULL);
             if(!_partition) {
-                (*this->_statusMessage) = SER_SPIFFS_PART_NOT_FOUND;
+                (*this->_statusMessage) = SER_LittleFS_PART_NOT_FOUND;
                 return false;
             }
 
             if(this->_upd_size > _partition->size) {
                 #ifdef DEBUG_SERIAL_ENABLE
-                    dbSerialPrintf("SPIFFS update to large! (%d) free: %d\n", this->_upd_size, _partition->size);
+                    dbSerialPrintf("LittleFS update to large! (%d) free: %d\n", this->_upd_size, _partition->size);
                 #endif
 
-                (*this->_statusMessage) = SER_UPD_SPIFFS_TO_LARGE;
+                (*this->_statusMessage) = SER_UPD_LittleFS_TO_LARGE;
                 return false;
             }
         #elif defined ESP8266
-            size_t spiffsSize = ((size_t) &_SPIFFS_end - (size_t) &_SPIFFS_start);
-            if(this->_upd_size > (int) spiffsSize) {
+            size_t LittleFSSize = ((size_t) &_LittleFS_end - (size_t) &_LittleFS_start);
+            if(this->_upd_size > (int) LittleFSSize) {
                 #ifdef DEBUG_SERIAL_ENABLE
-                    dbSerialPrintf("SPIFFS update to large! (%d) free: %d\n", this->_upd_size, spiffsSize);
+                    dbSerialPrintf("LittleFS update to large! (%d) free: %d\n", this->_upd_size, LittleFSSize);
                 #endif
 
-                (*this->_statusMessage) = SER_UPD_SPIFFS_TO_LARGE;
+                (*this->_statusMessage) = SER_UPD_LittleFS_TO_LARGE;
                 return false;
             }
         #endif

@@ -21,11 +21,11 @@
 
 #ifdef ESP32
     #include <AsyncTCP.h> // https://github.com/me-no-dev/AsyncTCP
-    #include <FS.h> // esp32 core SPIFFS library
-    #include <SPIFFS.h>
+    #include <FS.h> // esp32 core LittleFS library
+    #include <LittleFS.h>
 #elif defined  ESP8266 // ESP32
     #include <ESPAsyncTCP.h> // https://github.com/me-no-dev/ESPAsyncTCP
-    #include <FS.h> // esp8266 core SPIFFS library
+    #include <FS.h> // esp8266 core LittleFS library
     #define FILE_WRITE  "w"
     #define FILE_APPEND "a"
 #endif // ESP8266

@@ -68,7 +68,7 @@
 // HTTPS defines
 #define HTTPS                       true                // Use HTTPS for OTA updates
 #define HTTPS_8266_TYPE             CERTIFICATE         // FNGPRINT / CERTIFICATE | ESP32 only accepts certificates | SET to FNGPRINT for backwards compatibility with 2.0.X (ESP8266)
-#define HTTPS_CERT_STORAGE          ST_SPIFFS           // ST_SPIFFS / ST_PROGMEM | If you want to be able to update your certificates from config mode choose for ST_SPIFFS
+#define HTTPS_CERT_STORAGE          ST_LittleFS           // ST_LittleFS / ST_PROGMEM | If you want to be able to update your certificates from config mode choose for ST_LittleFS
 #define HTTPS_FNGPRINT              "2b 14 1a f1 5e 54 87 fc 0d f4 6f 0e 01 1c 0d 77 25 28 5b 9e" // Initial fingerprint(ESP8266). You can edit & change this later in config mode.
 
 // OTA defines
@@ -77,8 +77,8 @@
 #define OTA_LOG_FILE                "/ota/logs"         // file at host that handles 8266 updates
 #define OTA_HOST_HTTP_PORT          80
 #define OTA_HOST_HTTPS_PORT         443
-#define OTA_LOCAL_UPDATE            false               // Update firmware by uploading a .bin file in config mode | Only when config is stored in SPIFFS. CFG_STORAGE (line 15)
-#define OTA_UPD_CHECK_SPIFFS        true                // Do you want to OTA update SPIFFS? | true / false
+#define OTA_LOCAL_UPDATE            false               // Update firmware by uploading a .bin file in config mode | Only when config is stored in LittleFS. CFG_STORAGE (line 15)
+#define OTA_UPD_CHECK_LittleFS        true                // Do you want to OTA update LittleFS? | true / false
 #define OTA_UPD_CHECK_NEXTION       false               // Do you want to OTA update your Nextion display? | true / false
 
 #if defined  ESP8266
@@ -134,7 +134,7 @@
 #define MODE_BUTTON_VERY_LONG_PRESS   10000
 
 // define storage types (internal use)
-#define ST_SPIFFS   0
+#define ST_LittleFS   0
 #define ST_SD       1
 #define ST_PROGMEM  2
 #define ST_CLOUD    3
@@ -172,11 +172,11 @@
 #if defined ESP8266
     #define ESP_GETCHIPID ESP.getChipId()               // define for get chip id
     #define ESP_GETFLASHCHIPID ESP.getFlashChipId()     // define for get flash chip id
-    #define ESP_SPIFFSBEGIN SPIFFS.begin()              // define for SPIFFS.begin()
+    #define ESP_LittleFSBEGIN LittleFS.begin()              // define for LittleFS.begin()
 #elif defined ESP32
     #define ESP_GETCHIPID (uint32_t)ESP.getEfuseMac()
     #define ESP_GETFLASHCHIPID (uint32_t)g_rom_flashchip.device_id
-    #define ESP_SPIFFSBEGIN SPIFFS.begin(true)
+    #define ESP_LittleFSBEGIN LittleFS.begin(true)
 #endif
 
 /*---------------------------------------------------------------------------*/

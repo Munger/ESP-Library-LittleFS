@@ -211,7 +211,7 @@ void setup() {
         Serial.print(" - Added device name: ");
         Serial.println(deviceName);
 
-        // copy fingerprint to newConfig struct OR certificate to SPIFFS
+        // copy fingerprint to newConfig struct OR certificate to LittleFS
         #if defined  ESP8266 && HTTPS_8266_TYPE == FNGPRINT
           strcpy(newConfig.sha1, fingerprint);
           Serial.println(F(" - Added fingerprint"));
@@ -221,27 +221,27 @@ void setup() {
         IAS.writeConfig(newConfig);
         delay(100);
 
-        // if set write certificate to SPIFFS for future use
+        // if set write certificate to LittleFS for future use
         #if defined  ESP32 || HTTPS_8266_TYPE == CERTIFICATE
           
-          // Mount SPIFFS
-          if(!ESP_SPIFFSBEGIN){
-            Serial.println(F("- Failed to mount SPIFFS"));
+          // Mount LittleFS
+          if(!ESP_LittleFSBEGIN){
+            Serial.println(F("- Failed to mount LittleFS"));
           }
 
-          // open new SPIFFS file for writing data
+          // open new LittleFS file for writing data
           File fsUploadFile;
-          fsUploadFile = SPIFFS.open("/cert/iasRootCa.cer", "w"); /// close file
+          fsUploadFile = LittleFS.open("/cert/iasRootCa.cer", "w"); /// close file
 
-          // write certificate(hardcoded char array) to SPIFFS file
+          // write certificate(hardcoded char array) to LittleFS file
           if(fsUploadFile.write((uint8_t *)ROOT_CA, strlen(ROOT_CA)) != strlen(ROOT_CA)){
-            Serial.println(F(" - Failed to write certificate to SPIFFS"));
+            Serial.println(F(" - Failed to write certificate to LittleFS"));
           }
     
-          // close SPIFFS FILE
+          // close LittleFS FILE
           fsUploadFile.close();
     
-          Serial.println(F(" - Added Certificate to SPIFFS"));
+          Serial.println(F(" - Added Certificate to LittleFS"));
         #endif
       }
       
