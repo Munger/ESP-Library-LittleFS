@@ -1,6 +1,6 @@
 <img src="https://github.com/iotappstory/ESP-Library/blob/master/readme.jpg"/>
 
-Wifi & OTA update manager for IOT devices (ESP8266 and ESP32). ESP8266's need at least 1MB flash. You will need a free account at IOTAppStory.com. This fork uses LittleFS instead of LittleFS.
+Wifi & OTA update manager for IOT devices (ESP8266 and ESP32). ESP8266's need at least 1MB flash. You will need a free account at IOTAppStory.com. This fork uses LittleFS instead of SPIFFS.
 </br></br>
 
 ## Latest stable release 2.0.2
