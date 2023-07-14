@@ -64,7 +64,7 @@ bool UpdateESPClass::prepareUpdate(uint32_t upd_size, String &upd_md5, uint16_t 
     */
     if(this->_command == U_LittleFS) {
         #ifdef ESP32
-            const esp_partition_t* _partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_DATA_LittleFS, NULL);
+            const esp_partition_t* _partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_DATA_SPIFFS, NULL);
             if(!_partition) {
                 (*this->_statusMessage) = SER_LittleFS_PART_NOT_FOUND;
                 return false;
