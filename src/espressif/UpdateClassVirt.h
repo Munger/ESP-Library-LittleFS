@@ -19,10 +19,10 @@
 /*                            DEFINITIONS AND MACROS                         */
 /*---------------------------------------------------------------------------*/
 
-#define U_FLASH   0
-#define U_LittleFS  100
-#define U_AUTH    200
-#define U_NEXTION 300
+#define U_FLASH       0
+#define U_FILESYSTEM  100
+#define U_AUTH        200
+#define U_NEXTION     300
 
 /*---------------------------------------------------------------------------*/
 /*                        TYPEDEFS, CLASSES AND STRUCTURES                   */

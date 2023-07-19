@@ -2,7 +2,7 @@
   This sketch is based on:
   VirginSoil sketch [Andreas Spiess]
   ESP_AsyncFSBrowser - [me-no-dev]
-  FSWebServer - Example WebServer with LittleFS backend for esp8266 [Hristo Gochkov]
+  FSWebServer - Example WebServer with SPIFFS or LittleFS backend for esp8266 [Hristo Gochkov]
   
   Copyright (c) 2015 Hristo Gochkov. All rights reserved.
 
@@ -25,12 +25,12 @@
   #include <ESPAsyncTCP.h>                                  // https://github.com/me-no-dev/ESPAsyncTCP
 #elif defined ESP32
   #include <AsyncTCP.h>                                     // https://github.com/me-no-dev/AsyncTCP
-  #include <LittleFS.h>
+  #include <FileSystem.h>
 #endif
 
 #include <ESPAsyncWebServer.h>                              // https://github.com/me-no-dev/ESPAsyncWebServer
 #include <FS.h>
-#include <LittleFSEditor.h>
+#include <FSEditor.h>
 #include <Hash.h>
 #include <IOTAppStory.h>                                    // IotAppStory.com library
 
@@ -97,11 +97,11 @@ void setup(){
 
   //-------- Your Setup starts from here ---------------
   Serial.setDebugOutput(true);
-  LittleFS.begin();
+  FILESYSTEM.begin();
 
-  // serial print all files present in LittleFS
+  // serial print all files present in file system
   {
-    Dir dir = LittleFS.openDir("/");
+    Dir dir = FILESYSTEM.openDir("/");
     while (dir.next()) {
       String fileName = dir.fileName();
       size_t fileSize = dir.fileSize();
@@ -118,12 +118,12 @@ void setup(){
   });
   server.addHandler(&events);
 
-  // handle the async LittleFSEditor
-  server.addHandler(new LittleFSEditor(http_username,http_password));
+  // handle the async FSEditor
+  server.addHandler(new FSEditor(http_username,http_password));
 
-  // handle all other urls and serve static files from LittleFS if present
-  // example /news will search for a file called news.htm in LittleFS
-  server.serveStatic("/", LittleFS, "/").setDefaultFile("index.htm");
+  // handle all other urls and serve static files from file system if present
+  // example /news will search for a file called news.htm in file system
+  server.serveStatic("/", FILESYSTEM, "/").setDefaultFile("index.htm");
 
   // handle 404 - not found | serial print request info & send 404 to browser
   server.onNotFound([](AsyncWebServerRequest *request){

@@ -313,11 +313,11 @@ void drawWbmp(uint8_t xMove, uint8_t yMove, Stream &file) {
 }
 
 void bootScreen(int8_t xMove, int8_t yMove,String str1, const String fileName){
-  if(!LittleFS.begin()){
-     Serial.println(F("\n\n LittleFS Mount Failed"));
+  if(!FILESYSTEM.begin()){
+     Serial.println(F("\n\n File System Mount Failed"));
      return;
   }
-  File file = LittleFS.open(fileName,"r");
+  File file = FILESYSTEM.open(fileName,"r");
   if (!file) {
      Serial.println(F("\n\n Failed to open file"));
      return;
@@ -331,5 +331,5 @@ void bootScreen(int8_t xMove, int8_t yMove,String str1, const String fileName){
   display.display();
 
   file.close();
-  LittleFS.end();
+  FILESYSTEM.end();
 }

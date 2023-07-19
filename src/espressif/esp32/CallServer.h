@@ -30,10 +30,10 @@
     #define U_NEXTION 300
 #endif
 
-#define U_FLASH     0
-#define U_LittleFS    100
-#define U_AUTH      200
-#define U_LOGGER    400
+#define U_FLASH         0
+#define U_FILESYSTEM    100
+#define U_AUTH          200
+#define U_LOGGER        400
 
 /*---------------------------------------------------------------------------*/
 /*                        TYPEDEFS, CLASSES AND STRUCTURES                   */

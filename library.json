@@ -1,7 +1,7 @@
 {
   "name": "IOTAppStory-ESP-LittleFS",
   "keywords": "esp8266, esp32, IOT, IAS, wifi, wi-fi, OTA",
-  "description": "Update your ESP8266, ESP32 & Nextion displays over the air(OTA). LittleFS replaced with LitteFS.",
+  "description": "Update your ESP8266, ESP32 & Nextion displays over the air(OTA). Optionally replace SPIFFS with LittleFS.",
   "repository":
   {
     "type": "git",

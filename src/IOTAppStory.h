@@ -194,7 +194,7 @@ public:
     void setClock();
     bool ntpWaitForSync(int retries = SNTP_CONN_MAX_RETRIES);
 
-    void callHome(bool LittleFS = true);
+    void callHome(bool checkFileSystem = true);
     bool iotUpdater(int command = U_FLASH);
     bool espInstaller(Stream &streamPtr, FirmwareStruct *firmwareStruct, UpdateClassVirt& devObj, int command = U_FLASH);
 

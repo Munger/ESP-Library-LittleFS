@@ -4,7 +4,7 @@
 
   This sketch is based on:
   VirginSoil sketch [Andreas Spiess]
-  FSWebServer - Example WebServer with LittleFS backend for esp8266 [Hristo Gochkov]
+  FSWebServer - Example WebServer with SPIFFS or LittleFS backend for esp8266 [Hristo Gochkov]
   Arduino Debounce [David A. Mellis]
 
   Copyright (c) [2017] [Onno Dirkzwager]
@@ -27,7 +27,7 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 
-  Don't forget to upload the contents of the data folder with MkLittleFS Tool ("ESP8266 Sketch Data Upload" in Tools menu in Arduino IDE)
+  Don't forget to upload the contents of the data folder with MkSPIFFS Tool or MkLittleFS Tool ("ESP8266 Sketch Data Upload" in Tools menu in Arduino IDE)
   or you can upload it to IOTAppStory.com
 
   WebAppToggleBtn V3.0.2
@@ -43,7 +43,7 @@
   #include <ESPAsyncTCP.h>                            // https://github.com/me-no-dev/ESPAsyncTCP
 #elif defined ESP32
   #include <AsyncTCP.h>                               // https://github.com/me-no-dev/AsyncTCP
-  #include <LittleFS.h>
+  #include <FileSystem.h>
 #endif
 
 #include <ESPAsyncWebServer.h>                        // https://github.com/me-no-dev/ESPAsyncWebServer
@@ -131,8 +131,8 @@ void setup() {
   //-------- Your Setup starts from here ---------------
 
 
-  if(!LittleFS.begin()){
-      Serial.println(F(" LittleFS Mount Failed"));
+  if(!FILESYSTEM.begin()){
+      Serial.println(F(" File System Mount Failed"));
       return;
   }
   
@@ -174,7 +174,7 @@ void setup() {
 		json = String();
 	});
 
-  server.serveStatic("/", LittleFS, "/");
+  server.serveStatic("/", FILESYSTEM, "/");
 
 
   

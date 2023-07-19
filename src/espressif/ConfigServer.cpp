@@ -57,10 +57,10 @@ void ConfigServer::run() {
         bool exitConfig = false;
         this->_lastAction = millis();
 
-        #if CFG_STORAGE == ST_LittleFS || CFG_STORAGE == ST_HYBRID || defined ESP32
-            if(!ESP_LittleFSBEGIN) {
+        #if CFG_STORAGE == ST_FILESYSTEM || CFG_STORAGE == ST_HYBRID || defined ESP32
+            if(!ESP_FSBEGIN) {
                 #if DEBUG_LVL >= 1
-                    DEBUG_PRINT(F(" LittleFS Mount Failed"));
+                    DEBUG_PRINT(F(" File System Mount Failed"));
                 #endif
             }
         #endif
@@ -103,9 +103,9 @@ void ConfigServer::run() {
             WiFi.scanNetworks(true);
         }
 
-        #if CFG_STORAGE == ST_LittleFS
-            // serv LittleFS files from the /www/ directory
-            this->server->serveStatic("/", LittleFS, "/www/");
+        #if CFG_STORAGE == ST_FILESYSTEM
+            // serv files from the /www/ directory
+            this->server->serveStatic("/", FILESYSTEM, "/www/");
         #endif
         #if CFG_STORAGE == ST_CLOUD || CFG_STORAGE == ST_HYBRID
             // serv the index page or force wifi setup
@@ -230,7 +230,7 @@ void ConfigServer::run() {
 
                 File fsUploadFile;
 
-                // First step: check file extension & open new LittleFS file
+                // First step: check file extension & open new file
                 if(!index) {
                     /// Check if file has a valid extension .cer
                     if(!filename.endsWith(".cer")) {
@@ -241,15 +241,15 @@ void ConfigServer::run() {
                         DEBUG_PRINTF(" UploadStart: %s\n", filename.c_str());
                     #endif
 
-                    /// open new LittleFS file for writing data
-                    fsUploadFile = LittleFS.open("/cert/" + filename, FILE_WRITE);            // Open the file for writing in LittleFS (create if it doesn't exist)
+                    /// open new file for writing data
+                    fsUploadFile = FILESYSTEM.open("/cert/" + filename, FILE_WRITE);            // Open the file for writing in file system (create if it doesn't exist)
 
                 } else {
-                    /// open existing LittleFS file for appending data
-                    fsUploadFile = LittleFS.open("/cert/" + filename, FILE_APPEND);
+                    /// open existing file for appending data
+                    fsUploadFile = FILESYSTEM.open("/cert/" + filename, FILE_APPEND);
                 }
 
-                // Second step: write received buffer to LittleFS file
+                // Second step: write received buffer to file
                 if(len) {
                     #if DEBUG_LVL >= 3
                         DEBUG_PRINT(F(" Writing:\t"));

@@ -22,14 +22,14 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 
-  OfflineLittleFSConfigPages V0.0.9
+  OfflineFSConfigPages V0.0.9
 */
 /*
   To run config mode in offline situations you have to do 2 things:
   - set the following defines in the config.h file in the IOTAppStory-ESP library folder
-    CFG_STORAGE       ST_SPIFSS
+    CFG_STORAGE       ST_FILESYSTEM
     OTA_LOCAL_UPDATE  true
-  - upload the /data directory to your device LittleFS
+  - upload the /data directory to your device file system.
 */
 
 #define COMPDATE __DATE__ __TIME__
@@ -43,7 +43,7 @@ IOTAppStory IAS(COMPDATE, MODEBUTTON);                      // Initialize IotApp
 // ================================================ EXAMPLE VARS =========================================
 // used in this example to print variables every 10 seconds
 unsigned long printEntry;
-String deviceName = "LittleFS-config";
+String deviceName = "FileSystem-config";
 String chipId;
 
 // We want to be able to edit these example variables below from the wifi config manager
@@ -73,7 +73,7 @@ void setup() {
   deviceName += chipId;
   
   /* TIP! delete lines below when not used */
-  IAS.preSetDeviceName("deviceName");                       // preset deviceName this is also your MDNS responder: http://LittleFS-config-123.local
+  IAS.preSetDeviceName("deviceName");                       // preset deviceName this is also your MDNS responder: http://FileSystem-config-123.local
   IAS.preSetAutoUpdate(false);                              // automaticUpdate (true, false)
   IAS.preSetAutoConfig(false);                              // automaticConfig (true, false)
   /* TIP! Delete Wifi cred. when you publish your App. */

@@ -585,7 +585,7 @@ bool IOTAppStory::ntpWaitForSync(int retries) {
     Call home and check for updates
 
 *///---------------------------------------------------------------------------
-void IOTAppStory::callHome(bool LittleFS /*= true*/) {
+void IOTAppStory::callHome(bool checkFileSystem /*= true*/) {
 
     // update from IOTappStory.com
     #if DEBUG_LVL >= 2
@@ -613,10 +613,10 @@ void IOTAppStory::callHome(bool LittleFS /*= true*/) {
     // try to update sketch from IOTAppStory
     this->iotUpdater();
 
-    // try to update LittleFS from IOTAppStory
-    #if OTA_UPD_CHECK_LittleFS == true
-        if(LittleFS) {
-            this->iotUpdater(U_LittleFS);
+    // try to update file system from IOTAppStory
+    #if OTA_UPD_CHECK_FS == true
+        if(checkFileSystem) {
+            this->iotUpdater(U_FILESYSTEM);
         }
     #endif
 
@@ -659,8 +659,8 @@ bool IOTAppStory::iotUpdater(int command) {
         if(command == U_FLASH) {
             DEBUG_PRINT(SER_APP_SKETCH);
 
-        } else if(command == U_LittleFS) {
-            DEBUG_PRINT(SER_LittleFS);
+        } else if(command == U_FILESYSTEM) {
+            DEBUG_PRINT(SER_FILESYSTEM);
 
         }
         #if OTA_UPD_CHECK_NEXTION == true
@@ -710,8 +710,8 @@ bool IOTAppStory::iotUpdater(int command) {
         this->_firmwareUpdateDownloadCallback();
     }
 
-    if(command == U_FLASH || command == U_LittleFS) {
-        // sketch / LittleFS
+    if(command == U_FLASH || command == U_FILESYSTEM) {
+        // sketch / file system
         result = this->espInstaller(clientStream, &firmwareStruct, UpdateESP, command);
     }
     #if OTA_UPD_CHECK_NEXTION == true
@@ -2215,8 +2215,8 @@ String IOTAppStory::strRetCertScan(String path) {
         DEBUG_PRINTLN(SER_SERV_CERT_SCAN_RES);
     #endif
 
-    // open LittleFS certificate directory
-    File root = LittleFS.open("/cert");
+    // open certificate directory
+    File root = FILESYSTEM.open("/cert");
     if(!root || !root.isDirectory()) {
         #if DEBUG_LVL >= 3
             DEBUG_PRINTLN(" Failed to open directory");
@@ -2227,7 +2227,7 @@ String IOTAppStory::strRetCertScan(String path) {
 
     // delete requested file
     if(path != "") {
-        if(!LittleFS.remove(path)) {
+        if(!FILESYSTEM.remove(path)) {
             #if DEBUG_LVL >= 3
                 DEBUG_PRINTLN(" Failed to delete file!");
             #endif
@@ -2267,15 +2267,15 @@ String IOTAppStory::strRetCertScan(String path) {
     #endif
 
     //Initialize File System
-    if(!ESP_LittleFSBEGIN) {
+    if(!ESP_FSBEGIN) {
         #if DEBUG_LVL >= 3
-            DEBUG_PRINT(F(" LittleFS Mount Failed"));
+            DEBUG_PRINT(F(" File System Mount Failed"));
         #endif
     }
 
     /* <-- always fails
-    // check if LittleFS certificate directory exists
-    if(!LittleFS.exists("/cert")){  // || !root.isDirectory()
+    // check if certificate directory exists
+    if(!FILESYSTEM.exists("/cert")){  // || !root.isDirectory()
         #if DEBUG_LVL >= 2
             DEBUG_PRINTLN(F(" Failed to open directory"));
         #endif
@@ -2283,12 +2283,12 @@ String IOTAppStory::strRetCertScan(String path) {
         //return "0";
     }*/
 
-    // open LittleFS certificate directory
-    Dir dir = LittleFS.openDir("/cert/");
+    // open certificate directory
+    Dir dir = FILESYSTEM.openDir("/cert/");
 
     // delete requested file
     if(path != ""){
-        if(!LittleFS.remove(path)){
+        if(!FILESYSTEM.remove(path)){
             #if DEBUG_LVL >= 3
                 DEBUG_PRINTLN(F(" Failed to delete file!"));
             #endif

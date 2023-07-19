@@ -22,8 +22,8 @@
     #include <esp_partition.h>
     #include <esp_ota_ops.h>                // get running partition
 #else
-    extern "C" uint32_t _LittleFS_start;
-    extern "C" uint32_t _LittleFS_end;
+    extern "C" uint32_t _FS_start;
+    extern "C" uint32_t _FS_end;
 #endif
 
 /*---------------------------------------------------------------------------*/

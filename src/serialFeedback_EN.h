@@ -73,7 +73,7 @@
 #define SER_RET_FROM_IAS                "\n Returning from IOTAppStory.com"
 #define SER_CHECK_FOR                   " Checking for "
 #define SER_APP_SKETCH                  "App(Sketch)"
-#define SER_LittleFS                      "LittleFS"
+#define SER_FILESYSTEM                  "File System"
 #define SER_NEXTION                     "Nextion screen"
 #define SER_UPDATES_FROM                " updates from: "
 #define SER_UPDATES                     " updates"
@@ -94,14 +94,14 @@
 
 #define SER_EEPROM_FOUND                " EEPROM Configuration found"
 #define SER_EEPROM_NOT_FOUND            " EEPROM Configuration NOT FOUND!!!!"
-#define SER_EEPROM_SIZE            		" EEPROM_SIZE: "
+#define SER_EEPROM_SIZE            		  " EEPROM_SIZE: "
 
-#define SER_LittleFS_MOUNTING             "Mounting LittleFS..."
-#define SER_LittleFS_PART_NOT_FOUND       "LittleFS Partition Not Found"
+#define SER_FS_MOUNTING                 "Mounting file system..."
+#define SER_FS_PART_NOT_FOUND           "File System Partition Not Found"
 #define SER_CERTIFICATE_NOT_FOUND       "Certificate Not Found!"
 #define SER_CERTIFICATE_NOT_LOADED      "Could not load Certificate!"
 
-#define SER_UPD_LittleFS_TO_LARGE         "LittleFS update to large!"
+#define SER_UPD_FS_TO_LARGE             "File system update to large!"
 #define SER_UPD_SKETCH_TO_LARGE         "Sketch update to large!"
 #define SER_UPD_BEGIN_FAILED            "Update.begin failed!"
 #define SER_UPD_MD5_FAILED              "Update.setMD5 failed!"

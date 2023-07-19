@@ -30,7 +30,7 @@
 #include <IOTAppStory.h>                  // IOTAppStory.com library
 IOTAppStory IAS(COMPDATE, MODEBUTTON);    // Initialize IOTAppStory
 
-// This certificate gets copied to a file in LittleFS during first boot: /cert/iasRootCa.cer
+// This certificate gets copied to a file in file system during first boot: /cert/iasRootCa.cer
 const char ROOT_CA[] = \
   "-----BEGIN CERTIFICATE-----\n" \
   "MIIEMjCCAxqgAwIBAgIBATANBgkqhkiG9w0BAQUFADB7MQswCQYDVQQGEwJHQjEb\n" \
@@ -96,27 +96,27 @@ void setup() {
   IAS.onFirstBoot([]() {
     IAS.eraseEEPROM('F');                 // Optional! What to do with EEPROM on First boot of the app? 'F' Fully erase | 'P' Partial erase
 
-    // if set write certificate to LittleFS for future use
+    // if set write certificate to file system for future use
     #if defined  ESP32 || HTTPS_8266_TYPE == CERTIFICATE
       
-      // Mount LittleFS
-      if(!ESP_LittleFSBEGIN){
-        Serial.println(F(" Failed to mount LittleFS"));
+      // Mount file system
+      if(!ESP_FSBEGIN){
+        Serial.println(F(" Failed to mount file system"));
       }
 
-      // open new LittleFS file for writing data
+      // open new file for writing data
       File fsUploadFile;
-      fsUploadFile = LittleFS.open("/cert/iasRootCa.cer", "w"); /// close file
+      fsUploadFile = FILESYSTEM.open("/cert/iasRootCa.cer", "w"); /// close file
 
-      // write certificate(hardcoded char array) to LittleFS file
+      // write certificate(hardcoded char array) to file
       if(fsUploadFile.write((uint8_t *)ROOT_CA, strlen(ROOT_CA)) != strlen(ROOT_CA)){
-        Serial.println(F(" Failed to write certificate to LittleFS"));
+        Serial.println(F(" Failed to write certificate to file system"));
       }
 
-      // close LittleFS FILE
+      // close file
       fsUploadFile.close();
 
-      Serial.println(F(" Added Certificate to LittleFS"));
+      Serial.println(F(" Added Certificate to file system"));
     #endif
   });
   
