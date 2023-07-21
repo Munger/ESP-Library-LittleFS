@@ -175,7 +175,7 @@
     #define ESP_FSBEGIN FILESYSTEM.begin()              // define for FILESYSTEM.begin()
     #define ESP_USELITTLEFS 0
 #elif defined ESP32
-    #define ESP_USELITTLEFS 0                           // Set this to 1 to use LittleFS
+    #define ESP_USELITTLEFS 1                           // Set this to 1 to use LittleFS
     #define ESP_GETCHIPID (uint32_t)ESP.getEfuseMac()
     #define ESP_GETFLASHCHIPID (uint32_t)g_rom_flashchip.device_id
     #define ESP_FSBEGIN FILESYSTEM.begin(true)
