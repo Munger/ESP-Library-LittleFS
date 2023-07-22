@@ -90,7 +90,7 @@
 #define SER_PROC_TBL_HDR                "\n ID | LABEL                          | LEN |  EEPROM HDR  |  EEPROM VAL  | DEFAULT VALUE                  | CURRENT VALUE                  | STATUS\n"
 #define SER_PROC_TBL_OVRW               "%-30s | OVERWRITTEN"
 #define SER_PROC_TBL_DEF                "%-30s | DEFAULT"
-#define SER_PROC_TBL_WRITE              "%-30s | WRITTING TO EEPROM"
+#define SER_PROC_TBL_WRITE              "%-30s | WRITING TO EEPROM"
 
 #define SER_EEPROM_FOUND                " EEPROM Configuration found"
 #define SER_EEPROM_NOT_FOUND            " EEPROM Configuration NOT FOUND!!!!"
