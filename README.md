@@ -1,9 +1,19 @@
 <img src="https://github.com/iotappstory/ESP-Library/blob/master/readme.jpg"/>
 
-Wifi & OTA update manager for IOT devices (ESP8266 and ESP32). ESP8266's need at least 1MB flash. You will need a free account at IOTAppStory.com. This fork provides optional support for LittleFS instead of SPIFFS.
+Wifi & OTA update manager for IOT devices (ESP8266 and ESP32). ESP8266's need at least 1MB flash. You will need a free account at IOTAppStory.com.
+</br></br>
+<span style="background-color: #FFFF00">
+This fork provides optional support for LittleFS instead of SPIFFS.
+To use LittleFS build with -DESP_USELITTLEFS=1. Please note that as LittleFS has support for real directories you will need to pass 'true' as the 'create' param when opening files if you want to create the directory hierarchy when opening a file. THe constant FS_CREATE_DIR_PATH has been defined for this purpose, e.g.
+</br></br>
+File fsUploadFile;</br>
+fsUploadFile = FILESYSTEM.open("/cert/iasRootCa.cer", "w", FS_CREATE_DIR_PATH);
+</br></br>
+FS_CREATE_DIR_PATH is true when using LittleFS, otherwise false. I have not yet checked all of the example code so if you have problems opening files, this is probably why.
+</span>
 </br></br>
 
-## Latest stable release 2.0.2
+## Latest release 3.0.0-a.1
 https://github.com/Munger/ESP-Library-LittleFS/releases/latest
 </br></br>
 

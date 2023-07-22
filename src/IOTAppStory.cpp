@@ -1350,6 +1350,7 @@ bool IOTAppStory::eepFieldsConvertOldToNew(){
 	EEPROM.end();
 	delay(500);
 	DEBUG_PRINTLN("\n Done!");
+    return( true );
 }
 
 

@@ -22,7 +22,20 @@
 #ifdef ESP32
     #include <AsyncTCP.h> // https://github.com/me-no-dev/AsyncTCP
     #include <FS.h> // esp32 core file system library
-    #include <FileSystem.h>
+    
+    #if ESP_USELITTLEFS
+        #include <LittleFS.h>
+        #define FILESYSTEM LittleFS
+        // LittlsFS has real directories so we pass false in create param when opening files
+        // to create the directory hierarchy 
+        #define FS_CREATE_DIR_PATH true
+    #else
+        #include <SPIFFS.h>
+        #define FILESYSTEM SPIFFS
+        // SPIFFS does not have real directories so we pass false in create param when opening files 
+        #define FS_CREATE_DIR_PATH false
+    #endif
+
 #elif defined  ESP8266 // ESP32
     #include <ESPAsyncTCP.h> // https://github.com/me-no-dev/ESPAsyncTCP
     #include <FS.h> // esp8266 core file system library
