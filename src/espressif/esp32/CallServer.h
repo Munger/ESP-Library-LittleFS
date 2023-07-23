@@ -76,7 +76,7 @@ private:
 /*                                GLOBAL VARIABLES                           */
 /*---------------------------------------------------------------------------*/
 
-#if CERT_STORAGE == ST_PROGMEM
+#if HTTPS_CERT_STORAGE == ST_PROGMEM
 const char ROOT_CA[] PROGMEM = \
     "-----BEGIN CERTIFICATE-----\n" \
     "MIIEMjCCAxqgAwIBAgIBATANBgkqhkiG9w0BAQUFADB7MQswCQYDVQQGEwJHQjEb\n" \
