@@ -588,6 +588,11 @@ bool IOTAppStory::ntpWaitForSync(int retries) {
 void IOTAppStory::callHome(bool checkFileSystem /*= true*/) {
 
     // update from IOTappStory.com
+
+    #ifdef DISABLE_CALLHOME
+    return;
+    #endif
+
     #if DEBUG_LVL >= 2
         DEBUG_PRINTLN(SER_CALLING_HOME);
     #endif
