@@ -68,7 +68,9 @@
 // HTTPS defines
 #define HTTPS                       true                // Use HTTPS for OTA updates
 #define HTTPS_8266_TYPE             CERTIFICATE         // FNGPRINT / CERTIFICATE | ESP32 only accepts certificates | SET to FNGPRINT for backwards compatibility with 2.0.X (ESP8266)
+#ifndef HTTPS_CERT_STORAGE
 #define HTTPS_CERT_STORAGE          ST_FILESYSTEM           // ST_FILESYSTEM / ST_PROGMEM | If you want to be able to update your certificates from config mode choose for ST_FILESYSTEM
+#endif
 #define HTTPS_FNGPRINT              "2b 14 1a f1 5e 54 87 fc 0d f4 6f 0e 01 1c 0d 77 25 28 5b 9e" // Initial fingerprint(ESP8266). You can edit & change this later in config mode.
 
 // OTA defines
