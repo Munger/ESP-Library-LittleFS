@@ -619,7 +619,7 @@ void IOTAppStory::callHome(bool checkFileSystem /*= true*/) {
     this->iotUpdater();
 
     // try to update file system from IOTAppStory
-    #if OTA_UPD_CHECK_FS == true
+    #if OTA_UPD_CHECK_FILESYSTEM == true
         if(checkFileSystem) {
             this->iotUpdater(U_FILESYSTEM);
         }
