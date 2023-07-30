@@ -24,7 +24,7 @@
 */
 #include "serialFeedback_EN.h"                  // language file for serial feedback currently available EN & NL
 
-#define DEBUG_LVL                   2           // Debug level: 0 - 3 | none - max
+#define DEBUG_LVL                   3           // Debug level: 0 - 3 | none - max
 #define DEBUG_EEPROM_CONFIG         false
 #define DEBUG_FREE_HEAP             false
 #define SERIAL_SPEED                115200
